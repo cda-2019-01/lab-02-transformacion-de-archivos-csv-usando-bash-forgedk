@@ -19,7 +19,9 @@ do
     sed 's#;#,#g ' temporal/out2.csv > temporal/out3.csv
     sed 's#/#-#g ' temporal/out3.csv > temporal/out4.csv
     sed 's#^\([0-9]\)-#0\1-#' temporal/out4.csv > temporal/out5.csv
-    sed 's#\([0-9][0-9]\)#20\1#' temporal/out5.csv > procesadoSed/$filename"Procesado.csv"
+    sed 's#\([0-9][0-9]\)#20\1#' temporal/out5.csv > temporal/out6.csv 
+    sed "s#^\([0-9][0-9][0-9][0-9]\)#$filename,\1#" temporal/out6.csv > temporal/out7.csv
+    sed "s#^\(FECHA\)#NAME,\1#" temporal/out7.csv > procesadoSed/$filename"Procesado.csv"
 done
     rm -r temporal
 }
