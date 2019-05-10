@@ -24,6 +24,7 @@ done
 
 JuntarArchivos(){
     contador=0
+    rm -f $2
     touch $2
     echo $1
     echo $@
@@ -52,9 +53,9 @@ ConsultaSQL(){
     do
     b=$(basename $i)
     filename="${b%.*}"
-    csvsql  -v --snifflimit 0  -d ,  -q "?" --query "select NAME ,strftime('%m', FECHA) as Mes,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,MES"  $i > ConsultaSQL/mes/$filename".csv"
-    csvsql  -v --snifflimit 0  -d ,  -q "?"  --query  "select NAME ,strftime('%Y', FECHA) as Ano,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,Ano"  $i > ConsultaSQL/year/$filename".csv"
-    csvsql  -v --snifflimit 0  -d ,  -q "?"  --query  "select NAME, strftime('%H', HHMMSS)  as Hora,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,Hora"  $i > ConsultaSQL/hora/$filename".csv"
+    csvsql  -v --snifflimit 100  --query "select NAME ,strftime('%m', FECHA) as Mes,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,MES"  $i > ConsultaSQL/mes/$filename".csv"
+    csvsql  -v --snifflimit 100  --query  "select NAME ,strftime('%Y', FECHA) as Ano,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,Ano"  $i > ConsultaSQL/year/$filename".csv"
+    csvsql  -v --snifflimit 100  --query  "select NAME, strftime('%H', HHMMSS)  as Hora,AVG(VEL) as Velocidad from $filename  GROUP BY  NAME,Hora"  $i > ConsultaSQL/hora/$filename".csv"
     done
 }
 
