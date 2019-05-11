@@ -26,8 +26,6 @@ JuntarArchivos(){
     contador=0
     rm -f $2
     touch $2
-    echo $1
-    echo $@
     for i in $1/*.csv
     do 
     b=$(basename $i)
@@ -44,6 +42,11 @@ JuntarArchivos(){
    rm temporal.cvs
     
 }
+
+RemoverDirectorio(){
+    rm -r $1
+}
+
 ConsultaSQL(){
     mkdir ConsultaSQL
     mkdir ConsultaSQL/mes
@@ -64,3 +67,5 @@ ConsultaSQL
 JuntarArchivos ./ConsultaSQL/mes  velocidad-por-mes.csv
 JuntarArchivos ./ConsultaSQL/year velocidad-por-ano.csv
 JuntarArchivos ./ConsultaSQL/hora  velocidad-por-hora.csv
+RemoverDirectorio ConsultaSQL
+RemoverDirectorio procesadoSed
